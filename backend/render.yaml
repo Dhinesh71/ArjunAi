@@ -3,9 +3,11 @@ services:
     name: fusion-ai-backend
     runtime: node
     plan: starter
-    buildCommand: npm install
+    buildCommand: npm install && npx puppeteer browsers install chrome
     startCommand: node bot.js
     envVars:
+      - key: PUPPETEER_CACHE_DIR
+        value: /opt/render/project/puppeteer
       - key: PORT
         value: 3000
       - key: GROQ_API_KEY
