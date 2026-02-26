@@ -5,6 +5,7 @@ const { Groq } = require('groq-sdk');
 const { createClient } = require('@supabase/supabase-js');
 const fs = require('fs');
 const path = require('path');
+const express = require('express');
 
 // ─── Kill stale Puppeteer lock files ─────────────────────────────────────────
 const SESSION_DIR = path.join(__dirname, '.wwebjs_auth', 'session-fusion-ai-bot');
@@ -244,7 +245,19 @@ const client = new Client({
     authStrategy: new LocalAuth({ clientId: 'fusion-ai-bot' }),
     puppeteer: {
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+            '--no-zygote',
+            '--single-process',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--disable-software-rasterizer',
+            '--mute-audio',
+            '--disable-extensions'
+        ]
     }
 });
 
@@ -293,3 +306,9 @@ client.on('message', async (msg) => {
 
 console.log('🔄 Starting Arjun — FUSION AI CRM Agent for 6ixminds Labs...');
 client.initialize();
+
+// Dummy Express server to satisfy Render's port binding requirement
+const app = express();
+const port = process.env.PORT || 3000;
+app.get('/', (req, res) => res.send('Arjun FUSION AI CRM Agent is running.'));
+app.listen(port, () => console.log(`\n🌐 Dummy web server listening on port ${port} (to satisfy Render)`));
