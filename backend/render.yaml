@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: fusion-ai-backend
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: node bot.js
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: GROQ_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false

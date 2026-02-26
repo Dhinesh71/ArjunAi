@@ -1,0 +1,23 @@
+# Environment Variables — NEVER commit these
+.env
+
+# WhatsApp session data (contains auth tokens — keep private)
+.wwebjs_auth/
+.wwebjs_cache/
+
+# Node modules
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Windows scripts (not needed on Linux/Render)
+*.ps1
+
+# ngrok binary
+ngrok.exe
+
+# OS files
+.DS_Store
+Thumbs.db
